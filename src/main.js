@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createLobby, WEEK_00 } from './lobby.js';
 import { createFlythrough } from './cameraPath.js';
 import { exhibits } from './exhibits.js';
-import { createPlasmaRibbon, WEEK_01 } from './exhibits/plasmaRibbon.js';
+import { createSynthHalo, WEEK_01 } from './exhibits/synthHalo.js';
 
 const canvas = document.querySelector('#scene');
 const replayBtn = document.querySelector('#replay-path');
@@ -58,8 +58,8 @@ controls.touches = {
 controls.enabled = false;
 
 const { pedestal } = createLobby(scene);
-const plasma = createPlasmaRibbon();
-pedestal.add(plasma.group);
+const halo = createSynthHalo();
+pedestal.add(halo.group);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
@@ -107,12 +107,12 @@ onResize();
 
 function tick() {
   const dt = clock.getDelta();
-  plasma.update(clock.elapsedTime);
+  halo.update(clock.elapsedTime);
 
-  // Living lobby: subtle title pulse tied to the ribbon
+  // Living lobby: title pulse tied to the halo rings
   if (titleGlow) {
-    const pulse = 0.55 + Math.sin(clock.elapsedTime * 1.8) * 0.35;
-    titleGlow.style.opacity = String(0.75 + pulse * 0.2);
+    const pulse = 0.5 + Math.sin(clock.elapsedTime * 2.4) * 0.3;
+    titleGlow.style.opacity = String(0.72 + pulse * 0.22);
   }
 
   flythrough.update(dt);

@@ -11,6 +11,7 @@ Reported `originalModelName`: **`default`** (Cursor Auto / Composer routing)
 | **computerUse** (specialized computer/browser agent) | Subagent | Visual QA of local lobby; mobile + desktop QA of Cloudflare preview URL; Cloudflare challenge click-through | Best for “does it actually look right?” evidence. Underlying chat-model slug not exposed in run metadata. |
 | **generalPurpose** (inherited parent model) | Subagent | GitHub file pushes via Github MCP when local `gh`/`git push` auth was unavailable | Reliable for getting the public repo in sync; weaker when payloads (e.g. lockfiles) are too large for MCP. |
 | **Cursor Auto → Composer** (`default`) | Parent Cloud Agent (same run) | **Week 01 — Plasma Ribbon** exhibit + living-lobby title pulse + `COST_LOG.md` cost probe | Lean follow-up exhibit inside a warm session; good for measuring incremental vs cold-start cost. |
+| **composer-2.5** (Task subagent) | Subagent | Week 01 exhibit redo (model comparison): **SYNTH HALO** neon orrery | Strong at swapping in a distinct procedural concept while reusing lobby/pedestal wiring; lean ~140-line exhibit module. |
 
 ## Not used (intentionally)
 

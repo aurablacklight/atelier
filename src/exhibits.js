@@ -12,9 +12,9 @@ export const exhibits = [
   },
   {
     week: 1,
-    slug: 'plasma-ribbon',
-    title: 'PLASMA RIBBON',
-    summary: 'Living-lobby morph — twisting emissive ribbon and knot core above the pedestal.',
+    slug: 'synth-halo',
+    title: 'SYNTH HALO',
+    summary: 'Living-lobby morph — tilted neon rings and wireframe crystal orrery above the pedestal.',
     merged: true,
   },
 ];
