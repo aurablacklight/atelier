@@ -6,12 +6,16 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { createLobby, WEEK_00 } from './lobby.js';
 import { createFlythrough } from './cameraPath.js';
 import { exhibits } from './exhibits.js';
+import { createPlasmaRibbon, WEEK_01 } from './exhibits/plasmaRibbon.js';
 
 const canvas = document.querySelector('#scene');
 const replayBtn = document.querySelector('#replay-path');
 const weekLabel = document.querySelector('.week');
+const titleGlow = document.querySelector('.title-float__glow');
 
-weekLabel.textContent = `Week ${String(exhibits[exhibits.length - 1]?.week ?? 0).padStart(2, '0')} · ${WEEK_00.title}`;
+const latest = exhibits[exhibits.length - 1];
+weekLabel.textContent = `Week ${String(latest?.week ?? 0).padStart(2, '0')} · ${latest?.title ?? WEEK_00.title}`;
+if (titleGlow) titleGlow.textContent = latest?.title ?? WEEK_00.title;
 
 const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 const isNarrow = () => window.innerWidth < 640;
@@ -54,20 +58,8 @@ controls.touches = {
 controls.enabled = false;
 
 const { pedestal } = createLobby(scene);
-
-const ember = new THREE.Mesh(
-  new THREE.IcosahedronGeometry(0.28, 1),
-  new THREE.MeshStandardMaterial({
-    color: 0x101820,
-    emissive: 0x39f3ff,
-    emissiveIntensity: 2.2,
-    metalness: 0.7,
-    roughness: 0.25,
-    wireframe: true,
-  }),
-);
-ember.position.set(0, 2.15, 0);
-pedestal.add(ember);
+const plasma = createPlasmaRibbon();
+pedestal.add(plasma.group);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
@@ -115,9 +107,13 @@ onResize();
 
 function tick() {
   const dt = clock.getDelta();
-  ember.rotation.y += dt * 0.7;
-  ember.rotation.x += dt * 0.35;
-  ember.position.y = 2.15 + Math.sin(clock.elapsedTime * 1.6) * 0.08;
+  plasma.update(clock.elapsedTime);
+
+  // Living lobby: subtle title pulse tied to the ribbon
+  if (titleGlow) {
+    const pulse = 0.55 + Math.sin(clock.elapsedTime * 1.8) * 0.35;
+    titleGlow.style.opacity = String(0.75 + pulse * 0.2);
+  }
 
   flythrough.update(dt);
   if (!flythrough.playing) controls.update();
@@ -127,4 +123,4 @@ function tick() {
 
 tick();
 
-console.info('[atelier]', WEEK_00, exhibits);
+console.info('[atelier]', WEEK_00, WEEK_01, exhibits);

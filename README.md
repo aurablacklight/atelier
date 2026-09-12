@@ -50,4 +50,5 @@ The point is a world that accumulates history. Split repos would break the livin
 
 ## Models log
 
-See [`MODELS.md`](./MODELS.md) for which AI models/agents built Week 00 and what each was responsible for (kept for evaluating strengths and weaknesses over time).
+See [`MODELS.md`](./MODELS.md) for which AI models/agents built each week.  
+See [`COST_LOG.md`](./COST_LOG.md) for Cloud Agent cost probes and cadence notes.

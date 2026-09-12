@@ -10,6 +10,13 @@ export const exhibits = [
     summary: 'Lobby foundations — reflective floor, procedural neon, first pedestal.',
     merged: true,
   },
+  {
+    week: 1,
+    slug: 'plasma-ribbon',
+    title: 'PLASMA RIBBON',
+    summary: 'Living-lobby morph — twisting emissive ribbon and knot core above the pedestal.',
+    merged: true,
+  },
 ];
 
 export function nextWeekNumber() {
