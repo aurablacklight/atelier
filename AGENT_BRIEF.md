@@ -32,6 +32,7 @@ Acceptance:
 - New exhibit is visible near the pedestal
 - Registry + notes updated
 - Layout works on mobile and desktop (safe-area padding, readable type, usable touch target for Replay)
+- Append a row to MODELS.md for the model(s) used that week
 ```
 
 ## Mobile + desktop

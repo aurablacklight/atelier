@@ -47,3 +47,7 @@ AGENT_BRIEF.md     # paste/adapt for Cloud Agent runs
 ## Why one repo?
 
 The point is a world that accumulates history. Split repos would break the living lobby, shared pedestal, and changelog ritual.
+
+## Models log
+
+See [`MODELS.md`](./MODELS.md) for which AI models/agents built Week 00 and what each was responsible for (kept for evaluating strengths and weaknesses over time).
