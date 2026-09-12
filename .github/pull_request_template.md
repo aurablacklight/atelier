@@ -10,6 +10,7 @@
 - [ ] Flythrough recording attached
 - [ ] `npm run build` passes
 - [ ] No new external image textures (unless brief allows)
+- [ ] Checked mobile + desktop layout (safe areas, readable type, Replay tappable)
 
 ## Code
 - [ ] Updated `src/exhibits.js`

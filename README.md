@@ -15,7 +15,10 @@ One evolving Three.js gallery. **One repo forever** — weekly Cloud Agent PRs h
 npm install
 npm run dev      # http://localhost:5173
 npm run build
+npm run deploy   # Cloudflare Workers static assets → public URL
 ```
+
+Mobile and desktop are both first-class: safe-area UI, touch orbit controls, and lighter GPU settings on phones.
 
 ## Repo layout
 

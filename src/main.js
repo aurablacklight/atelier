@@ -13,12 +13,16 @@ const weekLabel = document.querySelector('.week');
 
 weekLabel.textContent = `Week ${String(exhibits[exhibits.length - 1]?.week ?? 0).padStart(2, '0')} · ${WEEK_00.title}`;
 
+const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+const isNarrow = () => window.innerWidth < 640;
+
 const renderer = new THREE.WebGLRenderer({
   canvas,
-  antialias: true,
+  antialias: !isCoarsePointer,
   powerPreference: 'high-performance',
+  alpha: false,
 });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarsePointer ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -28,7 +32,12 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x05060d);
 scene.fog = new THREE.FogExp2(0x05060d, 0.035);
 
-const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+const camera = new THREE.PerspectiveCamera(
+  isNarrow() ? 60 : 55,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100,
+);
 camera.position.set(0, 2.2, 10.5);
 
 const controls = new OrbitControls(camera, canvas);
@@ -37,11 +46,15 @@ controls.target.set(0, 1.55, 0);
 controls.maxPolarAngle = Math.PI * 0.49;
 controls.minDistance = 3;
 controls.maxDistance = 16;
+controls.enablePan = !isCoarsePointer;
+controls.touches = {
+  ONE: THREE.TOUCH.ROTATE,
+  TWO: THREE.TOUCH.DOLLY_PAN,
+};
 controls.enabled = false;
 
 const { pedestal } = createLobby(scene);
 
-// Placeholder "waiting for next exhibit" ember above the pedestal
 const ember = new THREE.Mesh(
   new THREE.IcosahedronGeometry(0.28, 1),
   new THREE.MeshStandardMaterial({
@@ -58,7 +71,13 @@ pedestal.add(ember);
 
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.7, 0.85, 0.25);
+const bloomStrength = isCoarsePointer ? 0.45 : 0.7;
+const bloom = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  bloomStrength,
+  0.85,
+  0.25,
+);
 composer.addPass(bloom);
 
 const flythrough = createFlythrough(camera, controls);
@@ -66,17 +85,33 @@ replayBtn?.addEventListener('click', () => flythrough.replay());
 
 const clock = new THREE.Clock();
 
+function viewportSize() {
+  const vv = window.visualViewport;
+  return {
+    w: Math.floor(vv?.width ?? window.innerWidth),
+    h: Math.floor(vv?.height ?? window.innerHeight),
+  };
+}
+
 function onResize() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
+  const { w, h } = viewportSize();
   camera.aspect = w / h;
+  camera.fov = isNarrow() ? 60 : 55;
   camera.updateProjectionMatrix();
-  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isCoarsePointer ? 1.5 : 2));
+  renderer.setSize(w, h, false);
   composer.setSize(w, h);
   bloom.setSize(w, h);
+  canvas.style.width = `${w}px`;
+  canvas.style.height = `${h}px`;
 }
 
 window.addEventListener('resize', onResize);
+window.visualViewport?.addEventListener('resize', onResize);
+window.addEventListener('orientationchange', () => {
+  window.setTimeout(onResize, 120);
+});
+onResize();
 
 function tick() {
   const dt = clock.getDelta();

@@ -31,7 +31,16 @@ Acceptance:
 - npm run build succeeds
 - New exhibit is visible near the pedestal
 - Registry + notes updated
+- Layout works on mobile and desktop (safe-area padding, readable type, usable touch target for Replay)
 ```
+
+## Mobile + desktop
+
+Every week must stay usable on phones and desktops:
+- Keep overlay text short; don’t cover the pedestal on small screens
+- Touch target for controls ≥ 44px
+- Respect safe-area insets; test portrait + landscape
+- Prefer cheaper bloom / pixel ratio on coarse pointers (already handled in `src/main.js`)
 
 ## Budget tips ($20 Pro)
 
