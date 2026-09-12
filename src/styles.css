@@ -1,0 +1,138 @@
+:root {
+  --bg: #05060d;
+  --ink: #e8f7ff;
+  --muted: #7f9bb0;
+  --neon: #39f3ff;
+  --neon-hot: #ff2bd6;
+  --panel: rgba(8, 12, 24, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chrome {
+  position: fixed;
+  z-index: 2;
+  top: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  pointer-events: none;
+  text-shadow: 0 0 18px rgba(57, 243, 255, 0.35);
+}
+
+.chrome--footer {
+  top: auto;
+  bottom: 1.25rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.week,
+.chrome--footer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+#replay-path {
+  pointer-events: auto;
+  border: 1px solid rgba(57, 243, 255, 0.45);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+#replay-path:hover {
+  border-color: var(--neon-hot);
+  box-shadow: 0 0 24px rgba(255, 43, 214, 0.25);
+  transform: translateY(-1px);
+}
+
+.title-float {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: title-rise 1.8s ease-out both;
+}
+
+.title-float__glow {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(57, 243, 255, 0.75);
+  text-shadow:
+    0 0 24px rgba(57, 243, 255, 0.45),
+    0 0 60px rgba(255, 43, 214, 0.35);
+  transform: translateY(18vh);
+}
+
+@keyframes title-rise {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .chrome {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .chrome--footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title-float__glow {
+    letter-spacing: 0.16em;
+    transform: translateY(22vh);
+  }
+}
