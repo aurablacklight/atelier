@@ -191,8 +191,8 @@ export function createLobby(scene) {
 
   const hemi = new THREE.HemisphereLight(0x6ecbff, 0x12081a, 0.55);
   const key = new THREE.SpotLight(NEON, 40, 30, Math.PI / 5, 0.4, 1);
-  key.target.position.set(0, 1.5, 0);
   key.position.set(4, 8, 6);
+  key.target.position.set(0, 1.5, 0);
   const fill = new THREE.PointLight(NEON_HOT, 18, 20);
   fill.position.set(-5, 3.5, 2);
 
