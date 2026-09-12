@@ -83,7 +83,7 @@ Assuming Pro included headroom is roughly “tens of dollars” of Agent usage p
 | Daily mega sessions | ~$60–$90 / mo equivalent | Too much for $20 Pro alone |
 | Long chats with 1.5M+ token turns | Spikes fast | Start a **fresh agent** per exhibit when context gets fat |
 
-**Practical rule:** prefer **short Cloud Agent runs** (one exhibit → one exhibit → PR/preview), Composer/`auto`, avoid Sonnet unless stuck. That supports **~2–4 Atelier drops per week** without eating the whole plan.
+**Practical rule:** prefer **short Cloud Agent runs** (one surprise brief → one exhibit → PR/preview), Composer/`auto`, avoid Sonnet unless stuck. That supports **~2–4 Atelier drops per week** without eating the whole plan.
 
 ## Week 01 redo — composer-2.5
 
